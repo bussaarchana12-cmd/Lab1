@@ -1,42 +1,36 @@
 
 const express = require('express');
+
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-// Home route
+// GET /
 app.get('/', (req, res) => {
-    res.send('Welcome to Lab 01 - Node.js and Express!');
+    res.status(200).send('Welcome to Lab 01 - Node.js and Express!');
 });
 
-// Time route
-app.get('/time', (req, res) => {
-    const currentTime = new Date();
-
-    res.send(`
-        <h1>Current Time</h1>
-        <h2>${currentTime.toLocaleString()}</h2>
-    `);
-});
-
-// About route
+// GET /about
 app.get('/about', (req, res) => {
-    res.send(`
-        <h1>About Me</h1>
-        <p>Name: BUSSA ARCHANA</p>
-        <p>Section: CSE-2A</p>
-    `);
+    res.status(200).json({
+        name: 'Your Name',
+        section: 'Your Section'
+    });
 });
 
-// 404 Not Found route
+// GET /time
+app.get('/time', (req, res) => {
+    res.status(200).json({
+        currentDateTime: new Date()
+    });
+});
+
+// 404 for unknown paths
 app.use((req, res) => {
-    res.status(404).send(`
-        <h1>404 - Not Found</h1>
-        <p>The requested page does not exist.</p>
-    `);
+    res.status(404).send('404 - Not Found');
 });
 
-// Start server
+// Start Express server
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Express server running on port ${PORT}`);
 });
