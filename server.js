@@ -13,17 +13,28 @@ app.get('/', (req, res) => {
 // GET /about
 app.get('/about', (req, res) => {
     res.status(200).json({
-        name: 'Your Name',
-        section: 'Your Section'
+        name: 'Bussa Archana',
+        section: 'CSE-2A'
     });
 });
 
 // GET /time
+
 app.get('/time', (req, res) => {
+    const currentTime = new Date();
+
     res.status(200).json({
-        currentDateTime: new Date()
+        date: currentTime.toLocaleDateString('en-IN', {
+            timeZone: 'Asia/Kolkata'
+        }),
+        time: currentTime.toLocaleTimeString('en-IN', {
+            timeZone: 'Asia/Kolkata',
+            hour12: true
+        }),
+        timezone: 'IST'
     });
 });
+
 
 // 404 for unknown paths
 app.use((req, res) => {
